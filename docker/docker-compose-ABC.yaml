@@ -15,8 +15,8 @@ networks:
   ORDERER:
   ORG1:
   ORG2:
-  CC_ORG1_PEER0:
-  CC_ORG2_PEER0:
+  ORG1_PEER0:
+  ORG2_PEER0:
 
 services:
 
@@ -63,7 +63,7 @@ services:
       # the following setting starts chaincode containers on the same
       # bridge network as the peers
       # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_CC_ORG1_PEER0
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_ORG1_PEER0
       - FABRIC_LOGGING_SPEC=INFO
       #- FABRIC_LOGGING_SPEC=DEBUG
       - CORE_PEER_TLS_ENABLED=true
@@ -97,7 +97,7 @@ services:
     networks:
       - ABC
       - ORG1
-      - CC_ORG1_PEER0
+      - ORG1_PEER0
 
   peer0.org2.example.com:
     container_name: peer0.org2.example.com
@@ -108,7 +108,7 @@ services:
       # the following setting starts chaincode containers on the same
       # bridge network as the peers
       # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_CC_ORG2_PEER0
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_ORG2_PEER0
       - FABRIC_LOGGING_SPEC=INFO
       #- FABRIC_LOGGING_SPEC=DEBUG
       - CORE_PEER_TLS_ENABLED=true
@@ -142,4 +142,4 @@ services:
     networks:
       - ABC
       - ORG2
-      - CC_ORG2_PEER0
+      - ORG2_PEER0
