@@ -64,10 +64,10 @@ if [ ! -d "${FABRIC_VERSION}" ]; then
   mkdir -p ./${FABRIC_VERSION}
   cd ./${FABRIC_VERSION}
 
-  tar zxf ../${BIN_NAME}
-  tar zxf ../${CA_BIN_NAME}
+  tar zxf ../${FILE_NAME}
+  tar zxf ../${CA_FILE_NAME}
 fi
 
-export PATH=$PATH:${WORK_PATH}/fabric-bin/${FABRIC_VERSION}/bin
+sudo cp ${WORK_PATH}/fabric-bin/${FABRIC_VERSION}/bin/* /usr/local/bin/
 cd $WORK_PATH
 echo
