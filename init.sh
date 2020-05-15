@@ -3,6 +3,9 @@
 
 echo "0.Initialize"
 mkdir -p ${PWD}/tmp
+mkdir -p organizations/fabric-ca/org1
+mkdir -p organizations/fabric-ca/org2
+mkdir -p organizations/fabric-ca/ordererOrg
 cp organizations/fabric-ca/ca.org1.example.com.yaml organizations/fabric-ca/org1/fabric-ca-server-config.yaml
 cp organizations/fabric-ca/ca.org2.example.com.yaml organizations/fabric-ca/org2/fabric-ca-server-config.yaml
 cp organizations/fabric-ca/ca.orderer.example.com.yaml organizations/fabric-ca/ordererOrg/fabric-ca-server-config.yaml

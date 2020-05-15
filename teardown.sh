@@ -11,6 +11,6 @@ rm -rf channel-artifacts
 rm -rf organizations/peerOrganizations
 rm -rf organizations/ordererOrganizations
 rm -rf tmp
-rm -rf organizations/fabric-ca/org1/*
-rm -rf organizations/fabric-ca/org2/*
-rm -rf organizations/fabric-ca/ordererOrg/*
+sudo rm -rf organizations/fabric-ca/org1/*
+sudo rm -rf organizations/fabric-ca/org2/*
+sudo rm -rf organizations/fabric-ca/ordererOrg/*
