@@ -21,7 +21,7 @@ createOrg2
 createOrderer
 echo
 
-echo "3.Create `orderer.genesis.block`"
+echo "3.Create orderer.genesis.block"
 . scripts/utils.sh
 setupCommonENV
 export FABRIC_CFG_PATH=${PWD}/configtx
