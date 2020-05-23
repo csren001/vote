@@ -42,7 +42,8 @@ sudo gpasswd -a ${USER} docker
 docker images
 
 #Tips: Speed up docker hub access in China
-sudo cat > /etc/docker/daemon.json <<EOF{
+sudo cat >> /etc/docker/daemon.json <<EOF
+{
     "registry-mirrors": ["https://registry.docker-cn.com"] 
 }
 EOF
@@ -72,13 +73,15 @@ docker images
 
 ############### docker-compose ####################
 # download
-$ wget https://github.com/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m` 
+#wget https://github.com/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m` 
+#wget https://get.daocloud.io/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m`
+wget https://blockchain-files.s3.cn-northwest-1.amazonaws.com.cn/docker-compose-`uname -s`-`uname -m`
 # copy to ` /usr/local/bin/ ` and rename
-$ sudo mv docker-compose-`uname -s`-`uname -m` /usr/local/bin/docker-compose
+sudo mv docker-compose-`uname -s`-`uname -m` /usr/local/bin/docker-compose
 # make executable
-$ sudo chmod +x /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 # validate installation
-$ docker-compose -v
+docker-compose -v
 
 ############### programming languages ####################
 # install Go
@@ -110,29 +113,6 @@ nvm install 10
 # check the version of Node.JS and NPM
 node -v
 npm -v
-
-############## download fabric binaries #################
-# set environment variables
-BASE_PATH=https://github.com/hyperledger
-FABRIC_VERSION=2.1.0 
-CA_VERSION=1.4.6
-ARCH=$(echo "$(uname -s|tr '[:upper:]' '[:lower:]'|sed 's/mingw64_nt.*/windows/')-$(uname -m | sed 's/x86_64/amd64/g')") 
-FILE_NAME=hyperledger-fabric-${ARCH}-${FABRIC_VERSION}.tar.gz
-CA_FILE_NAME=hyperledger-fabric-ca-${ARCH}-${CA_VERSION}.tar.gz
-cd /tmp
-# download fabric binaries and fabric-ca binaries
-wget ${BASE_PATH}/fabric/releases/download/v${FABRIC_VERSION}/${FILE_NAME}
-wget ${BASE_PATH}/fabric-ca/releases/download/v${CA_VERSION}/${CA_FILE_NAME} 
-# copy binaries
-mkdir -p ~/workspace/fabric-bin/${FABRIC_VERSION} && cd ~/workspace/fabric-bin/${FABRIC_VERSION}
-tar zxf /tmp/${FILE_NAME}
-tar zxf /tmp/${CA_FILE_NAME} 
-chmod +x bin/* && sudo cp bin/* /usr/local/bin/
-
-#Tips:  download link on pan.baidu.com
-#链接:https://pan.baidu.com/s/1PSFgdKt6ijcu4UFDyAa9UA 
-#提取码:8p2z 
-
 ```
 
 ### 1. Lab1 Environment setup
