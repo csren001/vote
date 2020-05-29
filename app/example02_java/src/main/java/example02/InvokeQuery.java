@@ -12,11 +12,9 @@ public class InvokeQuery {
     }
 
     private static final String ORGNAME_ORG1 = "Org1";
-    private static final String ORGNAME_ORG2 = "Org2";
     private static final String USERNAME_ORG1 = "user01";
-    private static final String USERNAME_ORG2 = "user02";
     private static final String CHANNEL_NAME = "mychannel";
-    private static final String CONTRACT_NAME = "mycc";
+    private static final String CONTRACT_NAME = "mycc02_java";
 
     private static void doQuery(String orgName, String userName, String functionName, String key)
             throws IOException, ContractException {
@@ -48,8 +46,7 @@ public class InvokeQuery {
 
     public static void main(String[] args) {
         try {
-            doQuery(ORGNAME_ORG1, USERNAME_ORG1, "query", "a");
-            doQuery(ORGNAME_ORG2, USERNAME_ORG2, "query", "b");
+            doQuery(ORGNAME_ORG1, USERNAME_ORG1, "Query", "a");
         } catch (IOException | ContractException e) {
             e.printStackTrace();
         }

@@ -13,11 +13,9 @@ public class InvokeTransfer {
     }
 
     private static final String ORGNAME_ORG1 = "Org1";
-    private static final String ORGNAME_ORG2 = "Org2";
     private static final String USERNAME_ORG1 = "user01";
-    private static final String USERNAME_ORG2 = "user02";
     private static final String CHANNEL_NAME = "mychannel";
-    private static final String CONTRACT_NAME = "mycc";
+    private static final String CONTRACT_NAME = "mycc02_java";
 
     private static void doTransfer(String orgName, String userName, String functionName, String keyFrom, String keyTo, String transAmount) throws IOException, ContractException, TimeoutException, InterruptedException {
         Path walletPath = Paths.get("wallet", orgName);
@@ -46,8 +44,7 @@ public class InvokeTransfer {
 
     public static void main(String[] args) {
         try {
-            doTransfer(ORGNAME_ORG1, USERNAME_ORG1, "transfer", "a", "b", "15");
-            doTransfer(ORGNAME_ORG2, USERNAME_ORG2, "transfer", "b", "a", "32");
+            doTransfer(ORGNAME_ORG1, USERNAME_ORG1, "Transfer", "a", "b", "15");
         } catch (IOException | ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
         }

@@ -29,41 +29,36 @@ public class RegisterUser {
     private static final String USERNAME_ORG1 = "user01";
     private static final String USERPWD_ORG1 = "user01pw";
 
-    private static final String ORGNAME_ORG2 = "Org2";
-    private static final String CA_CERT_ORG2 = "profiles/" + ORGNAME_ORG2 + "/tls/" + "ca.org2.example.com-cert.pem";
-    //private static final String CA_URL_ORG2 = "http://localhost:6054";
-    private static final String MSPID_ORG2 = "Org2MSP";
-    private static final String ADMINNAME_ORG2 = "admin";
-    private static final String USERNAME_ORG2 = "user02";
-    private static final String USERPWD_ORG2 = "user02pw";
-
     private static void doRegisterUser(String tlsCert, String orgName, String orgMSP, String adminName, String userName, String userSecret) throws Exception {
-        NetworkConfig config = NetworkConfig.fromJsonFile(new File(Paths.get( "profiles", orgName, "connection.json").toString()));
+        //Load Connection Profile
+        String filePath = Paths.get( "profiles", orgName, "connection.json").toString();
+        NetworkConfig config = NetworkConfig.fromJsonFile(new File(filePath));
         NetworkConfig.CAInfo caInfo = config.getOrganizationInfo(orgName).getCertificateAuthorities().get(0);
         String caURL = caInfo.getUrl();
-
         Properties props = new Properties();
         props.put("pemFile", tlsCert);
         props.put("allowAllHostNames", "true");
 
+        //Connect CA
         HFCAClient caClient = HFCAClient.createNewInstance(caURL, props);
         CryptoSuite cryptoSuite = CryptoSuiteFactory.getDefault().getCryptoSuite();
         caClient.setCryptoSuite(cryptoSuite);
         Wallet wallet = Wallets.newFileSystemWallet(Paths.get("wallet", orgName));
 
+        //Check admin existence in wallet
         X509Identity adminIdentity = (X509Identity) wallet.get(adminName);
-
         if (adminIdentity == null) {
             System.out.println("\"" + adminName + "@" + orgName + "\" needs to be enrolled and added to the wallet first");
             return;
         }
 
-        // Check to see if we've already enrolled the user.
+        //Check admin to be created existence in wallet
         if (wallet.get(userName) != null) {
             System.out.println("An identity for the user \"" + userName + "@" + orgName + "\" already exists in the wallet");
             return;
         }
 
+        //Get admin's UserContext
         Enrollment adminKeys = new Enrollment() {
             @Override
             public PrivateKey getKey() {
@@ -76,11 +71,10 @@ public class RegisterUser {
         };
         User admin = new UserContext(adminName, orgMSP, adminKeys);
 
-        // Register the user, enroll the user, and import the new identity into the wallet.
+        //Register user
         RegistrationRequest registrationRequest = new RegistrationRequest(userName);
-//        registrationRequest.setAffiliation("org1.department1");
         registrationRequest.setSecret(userSecret);
-       caClient.register(registrationRequest, admin);
+        caClient.register(registrationRequest, admin);
         Enrollment enrollment = caClient.enroll(userName, userSecret);
         Identity user = Identities.newX509Identity(orgMSP, enrollment);
         wallet.put(userName, user);
@@ -89,6 +83,5 @@ public class RegisterUser {
 
     public static void main(String[] args) throws Exception {
         doRegisterUser(CA_CERT_ORG1, ORGNAME_ORG1, MSPID_ORG1, ADMINNAME_ORG1, USERNAME_ORG1, USERPWD_ORG1);
-        doRegisterUser(CA_CERT_ORG2, ORGNAME_ORG2, MSPID_ORG2, ADMINNAME_ORG2, USERNAME_ORG2, USERPWD_ORG2);
     }
 }
