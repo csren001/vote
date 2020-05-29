@@ -60,13 +60,16 @@ else
   echo "fabric-ca binaries existing (${CA_VERSION}), ignored"
 fi
 
-if [ ! -d "${FABRIC_VERSION}" ]; then
-  mkdir -p ./${FABRIC_VERSION}
-  cd ./${FABRIC_VERSION}
-
-  tar zxf ../${FILE_NAME}
-  tar zxf ../${CA_FILE_NAME}
+if [ -d "${FABRIC_VERSION}" ]; then
+  rm -rf ./${FABRIC_VERSION}
 fi
+
+mkdir -p ./${FABRIC_VERSION}
+cd ./${FABRIC_VERSION}
+
+tar zxf ../${FILE_NAME}
+tar zxf ../${CA_FILE_NAME}
+
 
 sudo cp ${WORK_PATH}/fabric-bin/${FABRIC_VERSION}/bin/* /usr/local/bin/
 cd $WORK_PATH
