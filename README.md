@@ -182,7 +182,37 @@ npm -v
 . scripts/test_example02.sh mycc_java02
 
 ```
+
 ### 3. Lab3 SDK Development
+#### install Maven
+```bash
+cd /tmp
+wget https://mirrors.cnnic.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+sudo tar zxf apache-maven-3.6.3-bin.tar.gz
+sudo mv apache-maven-3.6.3 /opt/apache-maven
+sudo cat >> ~/.bashrc <<EOF
+# setup maven environments
+# =====================
+export PATH=$PATH:/opt/apache-maven/bin
+export MAVEN_HOME=/opt/apache-maven
+# =====================
+EOF
+source ~/.bashrc
+```
+#### add mirror for apache-maven (modify `/opt/apache-maven/conf/settings.xml`)
+```xml
+<mirrors>
+    ...
+    <mirror>
+      <id>aliyunmaven</id>
+      <mirrorOf>*</mirrorOf>
+      <name>Ali Cloud Public Repositories</name>
+      <url>https://maven.aliyun.com/repository/public</url>
+    </mirror>
+    ...
+</mirrors>
+```
+
 > upload to server: `/home/ubuntu/workspace/app/example02_java/example02-1.0-SNAPSHOT-jar-with-dependencies.jar`
 
 ```bash
@@ -202,3 +232,6 @@ java -classpath ./example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.Inv
 cd /home/ubuntu/workspace/app/example02_java/
 java -classpath ./example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.InvokeTransfer
 ```
+
+
+
