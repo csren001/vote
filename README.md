@@ -1,6 +1,7 @@
 ## Fabric 2.0 Lab Environment
 
 ### 0. Prepare
+
 ```bash
 ############### common packages ####################
 # install utilities
@@ -116,6 +117,7 @@ npm -v
 ```
 
 ### 1. Lab1 Environment setup
+
 ```bash
 # 1. STEPS for Setup Environment
 # 1.2. download docker images
@@ -150,4 +152,53 @@ npm -v
 
 ### 2. Lab2 Chaincode Development
 
+- Deploy & Access – example01
+
+```bash
+# deploy example01(java version) on v1.0
+. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example01/java mycc_java
+
+# access example01(java version) on v1.0
+. scripts/test_example01.sh mycc_java
+
+# upgrade example01(java version) on v1.1
+. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example01/java mycc_javav1.1 2
+
+# access example01(java version) on v1.1
+. scripts/test_example01.sh mycc_java
+```
+- Deploy & Access – example02
+```bash
+# deploy example02(java version) on v1.0
+. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example02/java mycc_java02
+
+# access example02(java version) on v1.0
+. scripts/test_example02.sh mycc_java02
+
+# upgrade example02(java version) on v1.1
+. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example02/java mycc_java02  v1.1  2
+
+# access example02(java version) on v1.1
+. scripts/test_example02.sh mycc_java02
+
+```
 ### 3. Lab3 SDK Development
+> upload to server: `/home/ubuntu/workspace/app/example02_java/example02-1.0-SNAPSHOT-jar-with-dependencies.jar`
+
+```bash
+# enroll admin
+cd /home/ubuntu/workspace/app/example02_java/
+java -classpath ./example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.EnrollAdmin
+
+# register user
+cd /home/ubuntu/workspace/app/example02_java/
+java -classpath ./example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.RegisterUser
+
+# query chaincode (Query:'a')
+cd /home/ubuntu/workspace/app/example02_java/
+java -classpath ./example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.InvokeQuery
+
+# invoke chaincode (Transfer:'a','b',15)
+cd /home/ubuntu/workspace/app/example02_java/
+java -classpath ./example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.InvokeTransfer
+```
