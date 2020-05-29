@@ -48,6 +48,20 @@ echo
 
 echo "6.Generate Connection Profiles"
 ./organizations/ccp-generate.sh
+if [ ! -d "${PWD}/app/example02_java_1.4/profiles/Org1/tls" ]; then 
+    mkdir -p app/example02_java_1.4/profiles/Org1/tls
+fi
+if [ ! -d "${PWD}/app/example02_java_1.4/profiles/Org2/tls" ]; then 
+    mkdir -p app/example02_java_1.4/profiles/Org2/tls
+fi
+
+if [ ! -d "${PWD}/app/example02/profiles/Org1/tls" ]; then 
+    mkdir -p app/example02_java/profiles/Org1/tls
+fi
+if [ ! -d "${PWD}/app/example02/profiles/Org2/tls" ]; then 
+    mkdir -p app/example02_java/profiles/Org2/tls
+fi
+
 cp ./organizations/peerOrganizations/org1.example.com/connection-org1.json app/example02_java_1.4/profiles/Org1/connection.json
 cp ./organizations/peerOrganizations/org2.example.com/connection-org2.json app/example02_java_1.4/profiles/Org1/connection.json
 cp ./organizations/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem app/example02_java_1.4/profiles/Org1/tls/
