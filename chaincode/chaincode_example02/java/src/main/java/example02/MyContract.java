@@ -10,7 +10,7 @@ import org.hyperledger.fabric.shim.ChaincodeStub;
  * Class: MyContract
  */
 @Contract(
-        name = "example01.MyContract",
+        name = "example02.MyContract",
         info = @Info(
                 title = "MyContract",
                 description = "SmartContract Example 02 - Blockchain Workshop",

@@ -47,8 +47,7 @@ cd ./fabric-bin
 FILE_NAME=hyperledger-fabric-${ARCH}-${FABRIC_VERSION}.tar.gz
 if [ ! -f "${FILE_NAME}" ]; then
   echo "downloading fabric binaries (${FILE_NAME})..."
-  #wget https://github.com/hyperledger/fabric/releases/download/v${FABRIC_VERSION}/${FILE_NAME}
-  wget https://blockchain-files.s3.cn-northwest-1.amazonaws.com.cn/${FILE_NAME}
+  wget https://github.com/hyperledger/fabric/releases/download/v${FABRIC_VERSION}/${FILE_NAME}
 else
   echo "fabric binaries existing (${FABRIC_VERSION}), ignored"
 fi
@@ -56,8 +55,7 @@ fi
 CA_FILE_NAME=hyperledger-fabric-ca-${ARCH}-${CA_VERSION}.tar.gz
 if [ ! -f $CA_FILE_NAME ]; then
   echo "downloading fabric-ca binaries (${CA_FILE_NAME})..."
-  #wget https://github.com/hyperledger/fabric-ca/releases/download/v${CA_VERSION}/${CA_FILE_NAME}
-  wget https://blockchain-files.s3.cn-northwest-1.amazonaws.com.cn/${CA_FILE_NAME}
+  wget https://github.com/hyperledger/fabric-ca/releases/download/v${CA_VERSION}/${CA_FILE_NAME}
 else
   echo "fabric-ca binaries existing (${CA_VERSION}), ignored"
 fi
