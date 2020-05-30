@@ -75,6 +75,7 @@ public class RegisterUser {
         RegistrationRequest registrationRequest = new RegistrationRequest(userName);
         registrationRequest.setSecret(userSecret);
         caClient.register(registrationRequest, admin);
+        //Enroll user
         Enrollment enrollment = caClient.enroll(userName, userSecret);
         Identity user = Identities.newX509Identity(orgMSP, enrollment);
         wallet.put(userName, user);

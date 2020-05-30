@@ -15,7 +15,7 @@ public class InvokeTransfer {
     private static final String ORGNAME_ORG1 = "Org1";
     private static final String USERNAME_ORG1 = "user01";
     private static final String CHANNEL_NAME = "mychannel";
-    private static final String CONTRACT_NAME = "mycc02_java";
+    private static final String CONTRACT_NAME = "mycc_java02";
 
     private static void doTransfer(String orgName, String userName, String functionName, String keyFrom, String keyTo, String transAmount) throws IOException, ContractException, TimeoutException, InterruptedException {
         Path walletPath = Paths.get("wallet", orgName);

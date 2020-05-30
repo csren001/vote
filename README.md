@@ -218,19 +218,19 @@ source ~/.bashrc
 ```bash
 # enroll admin
 cd /home/ubuntu/workspace/app/example02_java/
-java -classpath ./example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.EnrollAdmin
+java -classpath ./target/example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.EnrollAdmin
 
 # register user
 cd /home/ubuntu/workspace/app/example02_java/
-java -classpath ./example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.RegisterUser
+java -classpath ./target/example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.RegisterUser
 
 # query chaincode (Query:'a')
 cd /home/ubuntu/workspace/app/example02_java/
-java -classpath ./example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.InvokeQuery
+java -classpath ./target/example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.InvokeQuery
 
 # invoke chaincode (Transfer:'a','b',15)
 cd /home/ubuntu/workspace/app/example02_java/
-java -classpath ./example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.InvokeTransfer
+java -classpath ./target/example02-1.0-SNAPSHOT-jar-with-dependencies.jar example02.InvokeTransfer
 ```
 
 
