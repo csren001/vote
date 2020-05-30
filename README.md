@@ -162,7 +162,7 @@ npm -v
 . scripts/test_example01.sh mycc_java
 
 # upgrade example01(java version) on v1.1
-. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example01/java mycc_javav1.1 2
+. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example01/java mycc_java v1.1 2
 
 # access example01(java version) on v1.1
 . scripts/test_example01.sh mycc_java
@@ -176,7 +176,7 @@ npm -v
 . scripts/test_example02.sh mycc_java02
 
 # upgrade example02(java version) on v1.1
-. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example02/java mycc_java02  v1.1  2
+. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example02/java mycc_java02 v1.1 2
 
 # access example02(java version) on v1.1
 . scripts/test_example02.sh mycc_java02
