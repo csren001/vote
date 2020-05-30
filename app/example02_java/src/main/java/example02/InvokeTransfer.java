@@ -18,15 +18,18 @@ public class InvokeTransfer {
     private static final String CONTRACT_NAME = "mycc_java02";
 
     private static void doTransfer(String orgName, String userName, String functionName, String keyFrom, String keyTo, String transAmount) throws IOException, ContractException, TimeoutException, InterruptedException {
+        //get user identity from wallet.
         Path walletPath = Paths.get("wallet", orgName);
         Wallet wallet = Wallets.newFileSystemWallet(walletPath);
-
         Identity identity = wallet.get(userName);
+
+        //check identity existence in wallet
         if (identity == null) {
             System.out.println("The identity \"" + userName + "@"+ orgName + "\" doesn't exists in the wallet");
             return;
         }
 
+        //load connection profile
         Path networkConfigPath = Paths.get( "profiles", orgName, "connection.json");
         Gateway.Builder builder = Gateway.createBuilder();
         builder.identity(wallet, userName).networkConfig(networkConfigPath).discovery(true);

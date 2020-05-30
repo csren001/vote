@@ -18,21 +18,23 @@ public class InvokeQuery {
 
     private static void doQuery(String orgName, String userName, String functionName, String key)
             throws IOException, ContractException {
+        //get user identity from wallet.
         Path walletPath = Paths.get("wallet", orgName);
         Wallet wallet = Wallets.newFileSystemWallet(walletPath);
-
         Identity identity = wallet.get(userName);
 
+        //check identity existence in wallet
         if (identity == null) {
             System.out.println("The identity \"" + userName + "@"+ orgName + "\" doesn't exists in the wallet");
             return;
         }
 
+        //load connection profile
         Path networkConfigPath = Paths.get( "profiles", orgName, "connection.json");
         Gateway.Builder builder = Gateway.createBuilder();
         builder.identity(wallet, userName).networkConfig(networkConfigPath).discovery(true);
 
-        // create a gateway connection
+        //create a gateway connection
         try (Gateway gateway = builder.connect()) {
 
             // get the network and contract
