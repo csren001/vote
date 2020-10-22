@@ -156,7 +156,7 @@ if [[ "$CORE_PEER_TLS_ENABLED" == "true" ]]; then
     --peerAddresses $PEER0_ORG2_ADDRESS --tlsRootCertFiles $PEER0_ORG2_TLS_ROOTCERT_FILE \
     -C $CHANNEL_NAME --name ${CC_NAME} \
     --version ${CC_VERSION} --sequence $CC_SEQ --init-required \
-    --signature-policy $"$CC_POLICY" \
+    --signature-policy "$CC_POLICY" \
     $PRIVATE_COLLECTION_DEF
 else
     peer lifecycle chaincode commit -o ${ORDERER_ADDRESS} \
