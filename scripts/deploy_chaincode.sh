@@ -53,10 +53,13 @@ if [[ -f ${CC_PATH}/../collections_config.json ]]; then
     export PRIVATE_COLLECTION_DEF="--collections-config ${CC_PATH}/../collections_config.json"
 fi
 
+export CC_LABEL=${CC_NAME}_${CC_VERSION}
+
 echo "'CHAINCODE_NAME' set to '$CC_NAME'"
 echo "'CHAINCODE_LANG' set to '$CC_LANG'"
 echo "'CHAINCODE_PATH' set to '$CC_PATH'"
 echo "'CHAINCODE_VERSION' set to '$CC_VERSION'"
+echo "'CHAINCODE_LABEL' set to '$CC_LABEL'"
 echo "'SEQUENCE' set to '$CC_SEQ'"
 echo "'PRIVATE_COLLECTION_DEFINITION' set to '${PRIVATE_COLLECTION_DEF}'"
 
@@ -69,8 +72,6 @@ fi
 if [[ "$CC_LANG" == "java" ]]; then
     export CC_PATH=$CC_PATH/build/libs
 fi
-
-export CC_LABEL=${CC_NAME}_${CC_VERSION}
 
 echo '######## - (ORG1) install chaincode - ########'
 setupPeerENV1
