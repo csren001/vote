@@ -60,7 +60,7 @@ echo "'CHAINCODE_VERSION' set to '$CC_VERSION'"
 echo "'SEQUENCE' set to '$CC_SEQ'"
 echo "'PRIVATE_COLLECTION_DEFINITION' set to '${PRIVATE_COLLECTION_DEF}'"
 
-if [[ ! -f tmp/${CC_NAME}_${CC_VERSION}.tar.gz ]]; then
+if [[ ! -f tmp/${CC_LABEL}.tar.gz ]]; then
     pushd $CC_PATH
         ./build.sh
     popd
@@ -70,28 +70,29 @@ if [[ "$CC_LANG" == "java" ]]; then
     export CC_PATH=$CC_PATH/build/libs
 fi
 
+export CC_LABEL=${CC_NAME}_${CC_VERSION}
+
 echo '######## - (ORG1) install chaincode - ########'
 setupPeerENV1
 set -x
-if [[ ! -f tmp/${CC_NAME}_${CC_VERSION}.tar.gz ]]; then
-    peer lifecycle chaincode package tmp/${CC_NAME}_${CC_VERSION}.tar.gz --path ${CC_PATH} --lang $CC_LANG --label ${CC_NAME}_${CC_VERSION}
+if [[ ! -f tmp/${CC_LABEL}.tar.gz ]]; then
+    peer lifecycle chaincode package tmp/${CC_LABEL}.tar.gz --path ${CC_PATH} --lang $CC_LANG --label ${CC_LABEL}
 fi
-peer lifecycle chaincode install tmp/${CC_NAME}_${CC_VERSION}.tar.gz
+peer lifecycle chaincode install tmp/${CC_LABEL}.tar.gz
 set +x
 
 echo '######## - (ORG2) install chaincode - ########'
 setupPeerENV2
 set -x
-peer lifecycle chaincode package tmp/${CC_NAME}_${CC_VERSION}.tar.gz --path ${CC_PATH} --lang $CC_LANG --label ${CC_NAME}_${CC_VERSION}
-peer lifecycle chaincode install tmp/${CC_NAME}_${CC_VERSION}.tar.gz
+peer lifecycle chaincode package tmp/${CC_LABEL}.tar.gz --path ${CC_PATH} --lang $CC_LANG --label ${CC_LABEL}
+peer lifecycle chaincode install tmp/${CC_LABEL}.tar.gz
 set +x
 
 echo '######## - (ORG1) approve chaincode - ########'
 setupPeerENV1
-PACKAGE_ID=$(peer lifecycle chaincode queryinstalled --output json | jq -r '.installed_chaincodes[0].package_id')
-#PACKAGE_ID=$(sed -n "/${CC_NAME}_${CC_VERSION}/{s/^Package ID: //; s/, Label:.*$//; p;}" tmp/log.txt)
-echo "PACKAGE_ID(ORG1):" ${PACKAGE_ID}
 set -x
+PACKAGE_ID=$(peer lifecycle chaincode queryinstalled --output json | jq '.installed_chaincodes[] | select(.label == env.CC_LABEL) | .package_id')
+echo "PACKAGE_ID(ORG1):" ${PACKAGE_ID}
 if [[ "$CORE_PEER_TLS_ENABLED" == "true" ]]; then
     peer lifecycle chaincode approveformyorg \
     -o ${ORDERER_ADDRESS} --ordererTLSHostnameOverride orderer.example.com --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA \
@@ -113,13 +114,8 @@ set +x
 echo '######## - (ORG2) approve chaincode - ########'
 setupPeerENV2
 set -x
-# peer lifecycle chaincode queryinstalled >&tmp/log.txt
-PACKAGE_ID=$(peer lifecycle chaincode queryinstalled --output json | jq -r '.installed_chaincodes[0].package_id')
-set +x
-
-# PACKAGE_ID=$(sed -n "/${CC_NAME}_${CC_VERSION}/{s/^Package ID: //; s/, Label:.*$//; p;}" tmp/log.txt)
+PACKAGE_ID=$(peer lifecycle chaincode queryinstalled --output json | jq '.installed_chaincodes[] | select(.label == env.CC_LABEL) | .package_id')
 echo "PACKAGE_ID(ORG2):" ${PACKAGE_ID}
-set -x
 if [[ "$CORE_PEER_TLS_ENABLED" == "true" ]]; then
     peer lifecycle chaincode approveformyorg \
     -o ${ORDERER_ADDRESS} --ordererTLSHostnameOverride orderer.example.com --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA \
