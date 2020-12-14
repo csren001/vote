@@ -92,7 +92,7 @@ set +x
 echo '######## - (ORG1) approve chaincode - ########'
 setupPeerENV1
 set -x
-PACKAGE_ID=$(peer lifecycle chaincode queryinstalled --output json | jq '.installed_chaincodes[] | select(.label == env.CC_LABEL) | .package_id')
+PACKAGE_ID=$(peer lifecycle chaincode queryinstalled --output json | jq -r '.installed_chaincodes[] | select(.label == env.CC_LABEL) | .package_id')
 echo "PACKAGE_ID(ORG1):" ${PACKAGE_ID}
 if [[ "$CORE_PEER_TLS_ENABLED" == "true" ]]; then
     peer lifecycle chaincode approveformyorg \
@@ -115,7 +115,7 @@ set +x
 echo '######## - (ORG2) approve chaincode - ########'
 setupPeerENV2
 set -x
-PACKAGE_ID=$(peer lifecycle chaincode queryinstalled --output json | jq '.installed_chaincodes[] | select(.label == env.CC_LABEL) | .package_id')
+PACKAGE_ID=$(peer lifecycle chaincode queryinstalled --output json | jq -r '.installed_chaincodes[] | select(.label == env.CC_LABEL) | .package_id')
 echo "PACKAGE_ID(ORG2):" ${PACKAGE_ID}
 if [[ "$CORE_PEER_TLS_ENABLED" == "true" ]]; then
     peer lifecycle chaincode approveformyorg \
