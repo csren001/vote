@@ -2,10 +2,9 @@
 
 WORK_PATH=$PWD
 
-
-export FABRIC_VERSION=2.1.0
-export CA_VERSION=1.4.6
-export OTHER_VERSION=0.4.20
+export FABRIC_VERSION=2.3.0
+export CA_VERSION=1.4.9
+export DB_VERSION=3.1.1
 DOCKER_NS=hyperledger
 if [[ "$1" == "docker" ]]; then
   echo "Pulling Docker Images"
@@ -14,28 +13,14 @@ if [[ "$1" == "docker" ]]; then
   docker pull ${DOCKER_NS}/fabric-ca:${CA_VERSION}
 
   # Fabric images
-  FABRIC_IMAGES=(fabric-peer fabric-orderer fabric-tools fabric-ccenv fabric-javaenv fabric-nodeenv)
+  FABRIC_IMAGES=(fabric-peer fabric-orderer fabric-tools fabric-ccenv fabric-javaenv fabric-nodeenv fabric-baseos)
   for image in ${FABRIC_IMAGES[@]}; do
     echo "Pulling ${DOCKER_NS}/$image:${FABRIC_VERSION}"
     docker pull ${DOCKER_NS}/$image:${FABRIC_VERSION}
   done
 
   # Other images
-  OTHER_IMAGES=(fabric-baseos fabric-couchdb)
-  for image in ${OTHER_IMAGES[@]}; do
-    echo "Pulling ${DOCKER_NS}/$image:${OTHER_VERSION}"
-    docker pull ${DOCKER_NS}/$image:${OTHER_VERSION}
-  done
-
-  if [[ "$2" == "kafka" ]]; then
-    echo "Pulling Docker Images (Kafka / Zookeeper)"
-    # Kafka images
-    KAFKA_IMAGES=(fabric-kafka fabric-zookeeper)
-    for image in ${KAFKA_IMAGES[@]}; do
-      echo "Pulling ${DOCKER_NS}/$image:${OTHER_VERSION}"
-      docker pull ${DOCKER_NS}/$image:${OTHER_VERSION}
-    done
-  fi
+  docker pull couchdb:${DB_VERSION}
 else
   echo "ignored."
 fi
@@ -43,7 +28,7 @@ fi
 ARCH=$(echo "$(uname -s|tr '[:upper:]' '[:lower:]'|sed 's/mingw64_nt.*/windows/')-$(uname -m | sed 's/x86_64/amd64/g')")
 
 echo "Download Fabric Bianries"
-cd ./fabric-bin
+cd ${WORK_PATH}/fabric-bin
 FILE_NAME=hyperledger-fabric-${ARCH}-${FABRIC_VERSION}.tar.gz
 if [ ! -f "${FILE_NAME}" ]; then
   echo "downloading fabric binaries (${FILE_NAME})..."

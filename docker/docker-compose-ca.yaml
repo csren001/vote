@@ -5,11 +5,6 @@
 
 version: '2'
 
-volumes:
-  ca.orderer.example.com:
-  ca.org1.example.com:
-  ca.org2.example.com:
-
 networks:
   ABC:
   ORDERER:
@@ -30,7 +25,6 @@ services:
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
     volumes:
       - ../organizations/fabric-ca/org1:/etc/hyperledger/fabric-ca-server
-      #- ca.orderer.example.com:/var/hyperledger/production/orderer
     container_name: ca_org1
     networks:
       - ABC

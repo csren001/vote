@@ -37,7 +37,7 @@ echo
 echo "4.Startup Peers and Orderer"
 COMPOSE_FILE_BASE=docker/docker-compose-ABC.yaml
 COMPOSE_FILE_COUCH=docker/docker-compose-couch.yaml
-IMAGE_TAG=${FABRIC_VERSION} BASE_TAG=${OTHER_VERSION} DB_IMAGE_TAG=${OTHER_VERSION} docker-compose -f ${COMPOSE_FILE_BASE} -f ${COMPOSE_FILE_COUCH} up -d
+IMAGE_TAG=${FABRIC_VERSION} DB_IMAGE_TAG=${DB_VERSION} docker-compose -f ${COMPOSE_FILE_BASE} -f ${COMPOSE_FILE_COUCH} up -d
 echo
 
 sleep 5
