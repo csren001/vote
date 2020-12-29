@@ -14,7 +14,7 @@ public class InvokeQuery {
     private static final String ORGNAME_ORG1 = "Org1";
     private static final String USERNAME_ORG1 = "user01";
     private static final String CHANNEL_NAME = "mychannel";
-    private static final String CONTRACT_NAME = "mycc_java02";
+    private static final String CONTRACT_NAME = "mycc02_java";
 
     private static void doQuery(String orgName, String userName, String functionName, String key)
             throws IOException, ContractException {
