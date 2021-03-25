@@ -167,19 +167,21 @@ npm -v
 # access example01(java version) on v1.1
 . scripts/test_example01.sh mycc_java
 ```
+
 - Deploy & Access – example02
+
 ```bash
 # deploy example02(java version) on v1.0
-. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example02/java mycc_java02
+. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example02/java mycc02_java
 
 # access example02(java version) on v1.0
-. scripts/test_example02.sh mycc_java02
+. scripts/test_example02.sh mycc02_java
 
 # upgrade example02(java version) on v1.1
-. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example02/java mycc_java02 v1.1 2
+. scripts/deploy_chaincode.sh java ${PWD}/chaincode/chaincode_example02/java mycc02_java v1.1 2
 
 # access example02(java version) on v1.1
-. scripts/test_example02.sh mycc_java02
+. scripts/test_example02.sh mycc02_java
 
 ```
 
