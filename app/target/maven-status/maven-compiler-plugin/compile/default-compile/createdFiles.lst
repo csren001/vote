@@ -1,0 +1,8 @@
+example02/EnrollAdmin.class
+application/EnrollAdmin.class
+application/RegisterUser$1.class
+application/RegisterUser.class
+application/InvokeVote.class
+application/UserContext.class
+application/InvokeQuery.class
+application/InvokeCreateVote.class
