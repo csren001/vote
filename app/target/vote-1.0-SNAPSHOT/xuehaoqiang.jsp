@@ -31,7 +31,7 @@ p{color:green}
     <textarea>强强真强
     </textarea><br>
     <a href="VoteResult.jsp">查询投票结果</a><br>
-    <a href="enrolladmin.jsp">注册组织管理员</a><br>
+    <a href="CreateVote.jsp">创建投票</a><br>
     <a href="registeruser.jsp">注册普通用户</a><br>
 </body>
 </html>

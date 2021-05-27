@@ -59,7 +59,7 @@ set +x
 echo '############# END ###############'
 
 echo '######## - (ORG2) Invoke chaincode - ########'
-set +x
+set -x
 if [[ "$CORE_PEER_TLS_ENABLED" == "true" ]]; then
     peer chaincode invoke \
     -o ${ORDERER_ADDRESS} --ordererTLSHostnameOverride orderer.example.com --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA \

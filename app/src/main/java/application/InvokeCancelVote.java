@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeoutException;
 
-public class InvokeVote {
+public class InvokeCancelVote {
         static {
             System.setProperty("org.hyperledger.fabric.sdk.service_discovery.as_localhost", "true");}
         private static final String CHANNEL_NAME = "mychannel";

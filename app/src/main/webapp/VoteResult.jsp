@@ -1,14 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="application.InvokeQuery" %>
+<%@ page import="com.alibaba.fastjson.JSONObject" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Result</title>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <script type="text/javascript">
+	  function toDoVote(){
+	      var url = "DoVote.jsp";
+	      window.location.href= url;
+	  }
+    </script>
 </head>
 <body>
-<table>
+<table align="center">
 	<caption>投票结果</caption>
 	<thead>
 		<tr>
@@ -18,30 +25,18 @@
 			<th >操作</td>
 		</tr>
 	</thead>
-</table>
-<% String re = InvokeQuery.doQuery("Org1","user01","Query","vote01");%>
-<%= re %>
-<script type="text/javascript" language="javascript">
-    
-    var result = InvokeQuery.doQuery("Org1","user01","Query","vote01");
-    var jsonResult= eval('(' + result + ')');
-    var tbl = document.createElement("table");
-    for(id in jsonResult){
-    	var tr = document.createElement("tr");
-   		var td = document.createElement("td");
-   		td.appendChild(document.createTextNode(id));
-   		tr.appendChild(td);
-   		td.appendChild(document.createTextNode("描述"));
-   		tr.appendChild(td);
-   		td.appendChild(document.createTextNode(jsonResult[id]));
-   		tr.appendChild(td);
-   		td.appendChild(document.createTextNode("操作"));
-   		tr.appendChild(td);
-    	tbl.appendChild(tr);
-    }
-    var body = document.getElementsByTagName("body");
-    body[0].appendChild(tbl);
-</script>
+<%
+String voteName = request.getParameter("name");
+String re = InvokeQuery.doQuery("Org1","user01","Query",voteName);
+JSONObject jsonObject = JSONObject.parseObject(re);
+for(String key:jsonObject.keySet()){
+%><tr>
+<td><%=key %></td>
+<td>无</td>
+<td><%=jsonObject.get(key) %></td>
+<td><a href=<%= "DoVote.jsp?voteName="+voteName+"&candidate="+key %>>投票</a></td>
+</tr>
+<% } %></table>
 </body>
 </html>
 
